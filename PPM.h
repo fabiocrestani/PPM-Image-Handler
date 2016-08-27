@@ -1,5 +1,23 @@
 #pragma once
 
+/* 
+  PPM.h
+
+  Funções para trata de arquivos de imagem no formato PPM e PGM.
+
+  Exemplos de uso:
+
+  Ler um arquivo:
+    if (!loadPPMFile("original.ppm", &original_data, &width, &height, 3))
+	FATAL("Não foi possível abrir a imagem original.\n");
+
+  Exibir o conteudo da imagem:
+    printTextPPM(&original_data, width, height, 3);
+
+  Escrever um arquivo:
+    storePPMFile("test.ppm", &test_data, width, height, 1);
+*/
+
 
 /*
 loadPPMFile
@@ -83,3 +101,15 @@ Função usada para mostrar mensagem e encerrar programa em caso de erro.
 
 */
 void FATAL(char msg[]);
+
+
+/*
+allocateImageMemory
+
+Aloca espaço na memória para um vetor de imagem PPM
+
+*/
+int allocateImageMemory(unsigned char **output,
+                        unsigned int width,
+                        unsigned int height,
+                        unsigned int channels);
