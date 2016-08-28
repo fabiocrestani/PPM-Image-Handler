@@ -21,7 +21,7 @@ int loadPPMFile(char filename[],
 	unsigned int *height,
 	unsigned int channels) {
 
-        if (!(channels == 3 || channels == 1)) return 0;
+	if (!(channels == 3 || channels == 1)) return 0;
 
 	int dim_x;
 	int dim_y;
@@ -239,18 +239,56 @@ void FATAL(char msg[]) {
 /*
 allocateImageMemory
 
-Aloca espaço na memória para um vetor de imagem PPM
+Aloca espaço na memória para um vetor de imagem PPM.
+Retorna 1 em caso de sucesso.
 
 */
 int allocateImageMemory(unsigned char **output,
-                        unsigned int width,
-                        unsigned int height,
-                        unsigned int channels) {
+	unsigned int width,
+	unsigned int height,
+	unsigned int channels) {
 
-  *output = malloc(width * height * channels * sizeof(unsigned char));
+	*output = malloc(width * height * channels * sizeof(unsigned char));
 
-  if (output == NULL) 
-    return 0;
-  else 
-    return 1;
+	if (output == NULL)
+		return 0;
+	else
+		return 1;
+}
+
+/*
+newRandomImage
+
+Gera uma imagem aleatoriamente para fins de teste.
+Valores de 0 a 255.
+!!Nota: Não gera um arquivo PPM, apenas o vetor de imagem
+Retorna 1 em caso de sucesso.
+
+*/
+int newRandomImage(unsigned char **output,
+	unsigned int width,
+	unsigned int height,
+	unsigned int channels) {
+
+	*output = malloc(width * height * channels * sizeof(unsigned char));
+
+	if (output == NULL)
+		return 0;
+
+	srand(time(NULL));
+
+	for(unsigned int i = 0; i < height; i++) {
+		for (unsigned int j = 0; j < width * channels; j = j + channels) {
+			for (unsigned int k = 0; k < channels; k++) {
+
+				int r = rand() % 255;
+
+				(*output)[i * width * channels + j + k] = r;
+
+			}
+		}
+	}
+
+	return 1;
+
 }

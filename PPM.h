@@ -1,23 +1,5 @@
 #pragma once
 
-/* 
-  PPM.h
-
-  Funções para trata de arquivos de imagem no formato PPM e PGM.
-
-  Exemplos de uso:
-
-  Ler um arquivo:
-    if (!loadPPMFile("original.ppm", &original_data, &width, &height, 3))
-	FATAL("Não foi possível abrir a imagem original.\n");
-
-  Exibir o conteudo da imagem:
-    printTextPPM(&original_data, width, height, 3);
-
-  Escrever um arquivo:
-    storePPMFile("test.ppm", &test_data, width, height, 1);
-*/
-
 
 /*
 loadPPMFile
@@ -106,10 +88,27 @@ void FATAL(char msg[]);
 /*
 allocateImageMemory
 
-Aloca espaço na memória para um vetor de imagem PPM
+Aloca espaço na memória para um vetor de imagem PPM.
+Retorna 1 em caso de sucesso.
 
 */
 int allocateImageMemory(unsigned char **output,
-                        unsigned int width,
-                        unsigned int height,
-                        unsigned int channels);
+	unsigned int width,
+	unsigned int height,
+	unsigned int channels);
+
+
+
+/*
+newRandomImage
+
+Gera uma imagem aleatoriamente para fins de teste.
+Valores de 0 a 255.
+!!Nota: Não gera um arquivo PPM, apenas o vetor de imagem
+Retorna 1 em caso de sucesso.
+
+*/
+int newRandomImage(unsigned char **output,
+	unsigned int width,
+	unsigned int height,
+	unsigned int channels);
